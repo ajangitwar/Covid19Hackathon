@@ -42,6 +42,8 @@ public class Listing extends AppCompatActivity {
     private List<Shops> list;
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
+    private long backPressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,5 +187,17 @@ public class Listing extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        }else {
+            Toast.makeText(this, "Hit Back Again To Exit !", Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

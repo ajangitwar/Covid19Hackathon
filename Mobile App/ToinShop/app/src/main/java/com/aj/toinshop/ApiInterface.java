@@ -2,6 +2,7 @@ package com.aj.toinshop;
 
 import com.aj.toinshop.Modal.Mask;
 import com.aj.toinshop.Modal.OwnerModal;
+import com.aj.toinshop.Modal.RegRes;
 import com.aj.toinshop.Modal.Sanitizer;
 
 import retrofit2.Call;
@@ -23,5 +24,11 @@ public interface ApiInterface {
     @POST("updateS.php")
     @FormUrlEncoded
     Call<Sanitizer> updateS(@Field("id") String id, @Field("sanitize_count") String sanitize_count);
+
+    @POST("registerOwner.php")
+    @FormUrlEncoded
+    Call<RegRes> performReg(@Field("name") String name,@Field("owner_name") String owner_name,@Field("location") String location,
+                            @Field("email") String email,@Field("mobile") String mobile,@Field("username") String username,
+                            @Field("password") String password,@Field("address") String address);
 
 }

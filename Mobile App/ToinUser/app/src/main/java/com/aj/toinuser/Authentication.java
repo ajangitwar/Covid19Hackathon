@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class Authentication extends AppCompatActivity {
 
     private TextInputLayout uname,upass;
-    private Button LogBtn;
+    private Button LogBtn,ForgBtn;
     private TextView textReg;
     UserSes userSes;
     @Override
@@ -31,10 +31,10 @@ public class Authentication extends AppCompatActivity {
 
         userSes = new UserSes(Authentication.this);
         LogBtn = findViewById(R.id.logbtn);
+        ForgBtn = findViewById(R.id.logbtn2);
         textReg = findViewById(R.id.reg_text);
         uname = findViewById(R.id.uname);
         upass = findViewById(R.id.password);
-        textReg = findViewById(R.id.reg_text);
 
         LogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +45,20 @@ public class Authentication extends AppCompatActivity {
                 performLogin(name,pass);
             }
         });
+        ForgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Authentication.this, Forgot.class);
+                startActivity(i);
+                finish();
+            }
+        });
         textReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Authentication.this, "Register page", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Authentication.this, RegisterUser.class);
+                startActivity(i);
+                finish();
             }
         });
     }

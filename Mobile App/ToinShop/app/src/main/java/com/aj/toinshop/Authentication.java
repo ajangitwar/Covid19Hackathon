@@ -11,10 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aj.toinshop.Modal.OwnerModal;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.security.acl.Owner;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,9 +20,11 @@ import retrofit2.Response;
 public class Authentication extends AppCompatActivity {
 
     private TextInputLayout uname,upass;
-    private Button LogBtn;
+    private Button LogBtn,ForgBtn;
     private TextView textReg;
     OwnerSes ownerSes;
+    private long backPressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +32,7 @@ public class Authentication extends AppCompatActivity {
 
         ownerSes = new OwnerSes(Authentication.this);
         LogBtn = findViewById(R.id.logbtn);
+        ForgBtn = findViewById(R.id.logbtn2);
         textReg = findViewById(R.id.reg_text);
         uname = findViewById(R.id.uname);
         upass = findViewById(R.id.password);
@@ -47,10 +47,22 @@ public class Authentication extends AppCompatActivity {
                 performLogin(name,pass);
             }
         });
+
+        ForgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Authentication.this,Forgot.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         textReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Authentication.this, "Register page", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Authentication.this,RegisterOwner.class);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -92,5 +104,16 @@ public class Authentication extends AppCompatActivity {
                 Toast.makeText(Authentication.this, "Something went wrong try again.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        }else {
+            Toast.makeText(this, "Hit Back Again To Exit !", Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

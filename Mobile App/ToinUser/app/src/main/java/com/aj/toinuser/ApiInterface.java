@@ -1,5 +1,6 @@
 package com.aj.toinuser;
 
+import com.aj.toinuser.Modal.RegRes;
 import com.aj.toinuser.Modal.Result;
 import com.aj.toinuser.Modal.Shops;
 import com.aj.toinuser.Modal.UserModal;
@@ -19,5 +20,11 @@ public interface ApiInterface {
     @POST("listing.php")
     @FormUrlEncoded
     Call<Result> getShopList(@Field("location") String location);
+
+    @POST("registerUser.php")
+    @FormUrlEncoded
+    Call<RegRes> performReg(@Field("name") String name, @Field("email") String email, @Field("mobile") String mobile,
+                            @Field("username") String username, @Field("password") String password,
+                            @Field("address") String address);
 
 }
