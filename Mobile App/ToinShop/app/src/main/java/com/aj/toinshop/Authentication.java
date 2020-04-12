@@ -29,24 +29,16 @@ public class Authentication extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
-
         ownerSes = new OwnerSes(Authentication.this);
+
         LogBtn = findViewById(R.id.logbtn);
-        ForgBtn = findViewById(R.id.logbtn2);
+        ForgBtn = findViewById(R.id.forgot);
+
         textReg = findViewById(R.id.reg_text);
+
         uname = findViewById(R.id.uname);
         upass = findViewById(R.id.password);
-        textReg = findViewById(R.id.reg_text);
 
-        LogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = uname.getEditText().getText().toString();
-                String pass = upass.getEditText().getText().toString();
-
-                performLogin(name,pass);
-            }
-        });
 
         ForgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +46,16 @@ public class Authentication extends AppCompatActivity {
                 Intent i = new Intent(Authentication.this,Forgot.class);
                 startActivity(i);
                 finish();
+            }
+        });
+        LogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = uname.getEditText().getText().toString();
+                String pass = upass.getEditText().getText().toString();
+
+                performLogin(name,pass);
             }
         });
 
@@ -101,7 +103,7 @@ public class Authentication extends AppCompatActivity {
             public void onFailure(Call<OwnerModal> call, Throwable t) {
 
                 Log.e("auth",t.toString());
-                Toast.makeText(Authentication.this, "Something went wrong try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Authentication.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

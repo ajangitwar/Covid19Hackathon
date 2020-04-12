@@ -1,19 +1,25 @@
 package com.aj.toinuser;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.aj.toinuser.Modal.ForgRes;
 import com.google.android.material.textfield.TextInputLayout;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Forgot extends AppCompatActivity {
 
-    TextInputLayout email,name;
+    TextInputLayout mobile,name;
     private TextView textReg;
     private Button ForgBtn;
     @Override
@@ -22,8 +28,8 @@ public class Forgot extends AppCompatActivity {
         setContentView(R.layout.activity_forgot);
         ForgBtn = findViewById(R.id.logbtn2);
 
-        email = findViewById(R.id.uname);
-        name = findViewById(R.id.password);
+        name = findViewById(R.id.uname);
+        mobile = findViewById(R.id.password);
         textReg = findViewById(R.id.reg_text);
         textReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,9 +44,39 @@ public class Forgot extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String fname = name.getEditText().getText().toString();
-                String mail = email.getEditText().getText().toString();
+                String mob = mobile.getEditText().getText().toString();
 
-                Toast.makeText(Forgot.this, "Service not available for now", Toast.LENGTH_SHORT).show();
+                performFor(fname,mob);
+            }
+        });
+    }
+
+    private void performFor(String fname, String mob) {
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<ForgRes> call = apiInterface.ForgPass(fname,mob);
+
+        call.enqueue(new Callback<ForgRes>() {
+            @Override
+            public void onResponse(Call<ForgRes> call, Response<ForgRes> response) {
+                try {
+                    if (response.body().getResponse().equals("1")){
+                        Intent i  = new Intent(Forgot.this, ChangePassword.class);
+                        i.putExtra("id",response.body().getId());
+                        startActivity(i);
+                        finish();
+                    }else{
+                        Toast.makeText(Forgot.this, "Details are incorrect !", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(Forgot.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForgRes> call, Throwable t) {
+                Log.e("forgot",t.toString());
+                Toast.makeText(Forgot.this, "Check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

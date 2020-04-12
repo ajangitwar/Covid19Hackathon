@@ -33,6 +33,8 @@
             android:name=".Authentication"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterUser" />
+        <activity android:name=".ChangePassword" />
+        <activity android:name="com.aj.toinshop.Forgot" />
     </application>
 
 </manifest>

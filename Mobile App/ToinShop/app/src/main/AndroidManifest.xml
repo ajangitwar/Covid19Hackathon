@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterOwner"></activity>
+        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".RegisterOwner" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home" />

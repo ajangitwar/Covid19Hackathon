@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aj.toinshop.Modal.OwnerModal;
 import com.aj.toinshop.Modal.RegRes;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -34,7 +33,7 @@ public class RegisterOwner extends AppCompatActivity {
         email = findViewById(R.id.email);
         mobile = findViewById(R.id.mobile);
         uname = findViewById(R.id.username);
-        upass = findViewById(R.id.password);
+        upass = findViewById(R.id.conpass);
         cpass = findViewById(R.id.repassword);
         address = findViewById(R.id.address);
         RegBtn = findViewById(R.id.regbtn);
@@ -64,7 +63,6 @@ public class RegisterOwner extends AppCompatActivity {
                     performRegister(Name,owner,loc,mail,mob,username,userpass,add);
                 }else {
                     cpass.getEditText().setError("Password Does not match");
-                    upass.getEditText().setError("Password Does not match");
                 }
             }
         });
