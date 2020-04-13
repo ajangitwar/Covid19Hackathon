@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		 $username = $_POST['username'];
 		 $password = $_POST['password'];
 
-		$que = "SELECT email from shop_owner where email = '$email'";
+		$que = "SELECT email from shop_owner where name = '$name' AND uname = '$username'";
+
+
 		$res = $con->query($que);
 		if (mysqli_num_rows($res) > 0) {
 			$product = array(
@@ -27,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
 
 
-			$que = "INSERT INTO `shop_owner` (`name`, `owner_name`, `mobile`, `email`, `address`, `location`, `uname`, `password`) VALUES ('$name','$owner_name','$email','$mobile','$address','$location','$username','$password');";
+			$que = "INSERT INTO `shop_owner` (`name`, `owner_name`, `mobile`, `email`, `address`, `location`, `uname`, `password`) VALUES ('$name','$owner_name','$mobile','$email','$address','$location','$username','$password');";
 
 			if(mysqli_query($con,$que)){
 				$product = array(

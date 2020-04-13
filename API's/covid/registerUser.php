@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		 $username = $_POST['username'];
 		 $password = $_POST['password'];
 
-		$que = "SELECT email from user where email = '$email'";
+		$que = "SELECT email from user where name = '$name' AND uname = '$username'";
 		$res = $con->query($que);
 		if (mysqli_num_rows($res) > 0) {
 			$product = array(
